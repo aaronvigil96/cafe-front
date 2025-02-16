@@ -1,25 +1,13 @@
 import useEmblaCarousel from "embla-carousel-react";
 import CarrouselProduct from "../components/CarrouselProduct";
 import PromoItem from "../components/PromoItem";
-import { ProductItemProps } from "../interfaces/product-item.interface";
 import Autoplay from "embla-carousel-autoplay";
+import { products } from "../db/product";
 
-const slides:ProductItemProps[] = [
-    {
-        name: 'café argentino'
-    },
-    {
-        name: 'café boliviano'
-    },
-    {
-        name: 'café brasilero'
-    },
-    {
-        name: 'café guatemalteco'
-    }
-]
 
 const HomePage = () => {
+
+    const slides = products;
 
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({delay: 3000})]);
 
