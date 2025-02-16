@@ -14,7 +14,7 @@ const HomePage = () => {
     return(
         <div className="flex flex-col gap-4">
             <div className="h-screen bg-[url(cafe-home.jpg)] bg-bottom bg-cover bg-no-repeat flex">
-                <div className="md:basis-1/2 h-screen flex justify-center items-center">
+                <div className="max-w-5xl md:basis-1/2 h-screen flex justify-center items-center">
                     <div className="pl-5 pb-10">
                         <h2 className="text-4xl font-thin text-white">tu café preferido</h2>
                         <h1 className="text-6xl font-bold text-white">Siempre cerca tuyo</h1>

@@ -39,7 +39,7 @@ const Footer = () => {
             <blockquote className="font-thin text-sm text-center text-white mt-2">
                 <p>©Copyright 2025 CafeList - Todos los derechos reservados.</p>
                 <p>Sitio desarrollado y mantenido por Aaron Vigil</p>
-                </blockquote>
+            </blockquote>
         </footer>
     )
 }

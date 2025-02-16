@@ -23,9 +23,13 @@ const ProductPage = ({products}:ProductsItemProps) => {
                         <Link className="text-slate-400 hover:text-black transition-colors ease-in-out duration-300 capitalize" to={'/'}>home / </Link><Link className="text-slate-400 hover:text-black transition-colors ease-in-out duration-300 capitalize" to={'/product'}>tienda / </Link><span className="capitalize">{product.name}</span>
                     </nav>
                     <h2 className="font-bold text-3xl capitalize">{product.name}</h2>
+                    <p>Peso: {product.grams}gr</p>
+                    <h3 className="font-semibold text-3xl">${product.price}</h3>
                     <p className="font-thin">{product.description}</p>
                 </div>
-                <button className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
+                <div>
+                    <button className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
+                </div>
             </div>
         </div>
     )
