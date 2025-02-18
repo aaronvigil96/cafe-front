@@ -3,11 +3,13 @@ import NavItem from "./NavItem";
 import MessageHeader from "./MessageHeader";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
+import CartItem from "./CartItem";
 
 const NavBar = () => {
 
     const [cart, setCart] = useState(false);
-    const [cartItem, setCartItem] = useState([1]);
+    const [cartItem, setCartItem] = useState([1,2,3,4,5,6,7,8,9]);
 
     useEffect(() => {
         document.documentElement.style.overflow = cart ? "hidden" : "";
@@ -36,12 +38,35 @@ const NavBar = () => {
                         <div className="relative p-2 cursor-pointer">
                             <MdOutlineShoppingCart onClick={toggleCart} className="text-2xl"/>
                             {
-                                !cartItem.length ? "" : <span className="absolute p-4 flex items-center w-2.5 h-2.5 justify-center bg-green-600 rounded-full font-bold text-white top-[-14px] right-[-15px]">{cartItem.length}</span>
+                                !cartItem.length ? "" : <span className="absolute p-3 flex items-center w-2 h-2 justify-center bg-green-600 rounded-full font-bold text-white top-[-10px] right-[-7px]">{cartItem.length}</span>
                             }    
                         </div>
                     </nav>
                 </nav>
-                <div className={`fixed top-0 right-0 h-full w-80 bg-white ${cart ? "translate-x-0 z-[100]" : "translate-x-full"} md:w-xl transition-transform duration-300 ease-in-out`}>
+                <div className={`fixed top-0 right-0 h-full flex flex-col w-80 bg-white ${cart ? "translate-x-0 z-[100]" : "translate-x-full"} transition-transform duration-300 ease-in-out`}>
+                    <div className="flex justify-end pr-2 pt-2">
+                        <IoClose onClick={toggleCart} className="text-4xl cursor-pointer"/>
+                    </div>
+                    <div className="flex flex-col flex-1 justify-between">
+                        <div className="max-w-max pl-2">
+                            <h2 className="text-3xl">Carrito</h2>
+                        </div>
+                        <div className="flex-1 p-2 overflow-y-auto max-h-[70vh]">
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                        </div>
+                        <div className="p-2">
+                            <hr className="px-2"/>
+                            <p>Total: <span>$150.000</span></p>
+                            <button className=" cursor-pointer w-full p-2 mt-2 bg-blue-500 text-white rounded-sm">Comprar</button>
+                        </div>
+                    </div>
                 </div>
                 <div onClick={toggleCart} className={`${cart ? "fixed w-full h-full top-0 right-0 z-[90] backdrop-brightness-50" : ""}`}>
                 </div>
