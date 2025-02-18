@@ -5,11 +5,13 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import CartItem from "./CartItem";
+import { useCartStore } from "../stores/cart.store";
 
 const NavBar = () => {
 
     const [cart, setCart] = useState(false);
-    const [cartItem, setCartItem] = useState([1,2,3,4,5,6,7,8,9]);
+    const cartStore = useCartStore().cart;
+    const [cartItem, setCartItem] = useState([]);
 
     useEffect(() => {
         document.documentElement.style.overflow = cart ? "hidden" : "";
@@ -38,7 +40,7 @@ const NavBar = () => {
                         <div className="relative p-2 cursor-pointer">
                             <MdOutlineShoppingCart onClick={toggleCart} className="text-2xl"/>
                             {
-                                !cartItem.length ? "" : <span className="absolute p-3 flex items-center w-2 h-2 justify-center bg-green-600 rounded-full font-bold text-white top-[-10px] right-[-7px]">{cartItem.length}</span>
+                                !cartStore.length ? "" : <span className="absolute p-3 flex items-center w-2 h-2 justify-center bg-green-600 rounded-full font-bold text-white top-[-10px] right-[-7px]">{cartStore.length}</span>
                             }    
                         </div>
                     </nav>
@@ -52,14 +54,9 @@ const NavBar = () => {
                             <h2 className="text-3xl">Carrito</h2>
                         </div>
                         <div className="flex-1 p-2 overflow-y-auto max-h-[70vh]">
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
-                            <CartItem image="bag-coffee.png" name="Café Argentino" quantity={20}/>
+                            {
+                                cartStore?.map(product => <CartItem key={product.id} image={product.image} name={product.name} quantity={product.quantity}/>)
+                            }
                         </div>
                         <div className="p-2">
                             <hr className="px-2"/>

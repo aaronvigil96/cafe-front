@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router";
 import { ProductsItemProps } from "../interfaces/products-item.interface";
 import { ProductItemProps } from "../interfaces/product-item.interface";
+import { useCartStore } from "../stores/cart.store";
 
 const ProductPage = ({products}:ProductsItemProps) => {
 
@@ -11,6 +12,8 @@ const ProductPage = ({products}:ProductsItemProps) => {
     if(!product){
         return <h2>Producto no encontrado</h2>
     }
+
+    const addCartStoreProduct = useCartStore().addToCart;
 
     return(
         <div className="max-w-3xl mx-auto sm:flex my-4">
@@ -28,7 +31,7 @@ const ProductPage = ({products}:ProductsItemProps) => {
                     <p className="font-thin">{product.description}</p>
                 </div>
                 <div>
-                    <button className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
+                    <button onClick={() => addCartStoreProduct({id:product.id, image: "/bag-coffee.png", name: product.name, price: 1200, quantity: 1})} className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
                 </div>
             </div>
         </div>
