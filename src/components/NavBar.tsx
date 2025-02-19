@@ -11,7 +11,7 @@ const NavBar = () => {
 
     const [cart, setCart] = useState(false);
     const cartStore = useCartStore().cart;
-    const [cartItem, setCartItem] = useState([]);
+    const total = useCartStore().getTotalPrice();
 
     useEffect(() => {
         document.documentElement.style.overflow = cart ? "hidden" : "";
@@ -45,7 +45,7 @@ const NavBar = () => {
                         </div>
                     </nav>
                 </nav>
-                <div className={`fixed top-0 right-0 h-full flex flex-col w-80 bg-white ${cart ? "translate-x-0 z-[100]" : "translate-x-full"} transition-transform duration-300 ease-in-out`}>
+                <div className={`fixed top-0 right-0 h-full flex flex-col w-full bg-white ${cart ? "translate-x-0 z-[100]" : "translate-x-full"} md:w-[500px] transition-transform duration-300 ease-in-out`}>
                     <div className="flex justify-end pr-2 pt-2">
                         <IoClose onClick={toggleCart} className="text-4xl cursor-pointer"/>
                     </div>
@@ -55,12 +55,12 @@ const NavBar = () => {
                         </div>
                         <div className="flex-1 p-2 overflow-y-auto max-h-[70vh]">
                             {
-                                cartStore?.map(product => <CartItem key={product.id} image={product.image} name={product.name} quantity={product.quantity}/>)
+                                cartStore?.map(product => <CartItem key={product.id} id={product.id} price={product.price} image={product.image} name={product.name} quantity={product.quantity}/>)
                             }
                         </div>
                         <div className="p-2">
                             <hr className="px-2"/>
-                            <p>Total: <span>$150.000</span></p>
+                            <p className="text-2xl">Total: <span className="font-bold text-2xl">${total.toFixed(2)}</span></p>
                             <button className=" cursor-pointer w-full p-2 mt-2 bg-blue-500 text-white rounded-sm">Comprar</button>
                         </div>
                     </div>

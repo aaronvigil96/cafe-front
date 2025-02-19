@@ -31,7 +31,7 @@ const ProductPage = ({products}:ProductsItemProps) => {
                     <p className="font-thin">{product.description}</p>
                 </div>
                 <div>
-                    <button onClick={() => addCartStoreProduct({id:product.id, image: "/bag-coffee.png", name: product.name, price: 1200, quantity: 1})} className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
+                    <button onClick={() => addCartStoreProduct({id:product.id, image: "/bag-coffee.png", name: product.name, price: product.price, quantity: 1})} className="w-full border p-2 text-center font-bold rounded-sm cursor-pointer">Agregar al carrito</button>
                 </div>
             </div>
         </div>
