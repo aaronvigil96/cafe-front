@@ -36,7 +36,7 @@ const NavBar = () => {
                     <nav className="flex gap-4 items-center">
                         <div className="flex gap-2">
                             <NavItem name="tienda" location="/product"/>
-                            <NavItem name="contacto" location="/contact"/>
+                            <NavItem name="cuenta" location="/auth"/>
                         </div>
                         <div className="relative p-2 cursor-pointer">
                             <MdOutlineShoppingCart onClick={toggleCart} className="text-2xl"/>

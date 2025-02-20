@@ -4,4 +4,5 @@ export interface ProductItemProps {
     price: number;
     description?: string;
     grams?: number;
+    stock:number;
 }
