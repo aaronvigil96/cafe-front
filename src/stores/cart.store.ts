@@ -16,6 +16,7 @@ interface CartStore {
     increaseQuantity: (id: number) => void;
     decreaseQuantity: (id: number) => void;
     getPriceByProduct: (id:number) => number;
+    getTotalCountProduct: () => number;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -42,5 +43,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
     getPriceByProduct: (id:number) => {
         const item = get().cart.find((item) => item.id === id);
         return item ? item.price * item.quantity : 0;
+    },
+    getTotalCountProduct: () => {
+        return get().cart.reduce((total, item) => total + item.quantity, 0);
     }
 }))

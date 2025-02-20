@@ -12,6 +12,7 @@ const NavBar = () => {
     const [cart, setCart] = useState(false);
     const cartStore = useCartStore().cart;
     const total = useCartStore().getTotalPrice();
+    const totalCountProductCart = useCartStore().getTotalCountProduct()
 
     useEffect(() => {
         document.documentElement.style.overflow = cart ? "hidden" : "";
@@ -40,7 +41,7 @@ const NavBar = () => {
                         <div className="relative p-2 cursor-pointer">
                             <MdOutlineShoppingCart onClick={toggleCart} className="text-2xl"/>
                             {
-                                !cartStore.length ? "" : <span className="absolute p-3 flex items-center w-2 h-2 justify-center bg-green-600 rounded-full font-bold text-white top-[-10px] right-[-7px]">{cartStore.length}</span>
+                                !cartStore.length ? "" : <span className="absolute p-3 flex items-center w-2 h-2 justify-center bg-green-600 rounded-full font-bold text-white top-[-10px] right-[-7px]">{totalCountProductCart}</span>
                             }    
                         </div>
                     </nav>
