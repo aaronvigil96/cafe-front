@@ -5,7 +5,6 @@ import HomePage from './routes/HomePage'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import ProductPage from './routes/ProductPage'
-import { products } from './db/product'
 import ProductsPage from './routes/ProductsPage'
 import Footer from './components/Footer'
 import LoginPage from './routes/LoginPage'
@@ -31,7 +30,7 @@ const Layout = () => {
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/product' element={<ProductsPage/>}/>
-        <Route path='/product/:pid' element={<ProductPage products={products}/>}/>
+        <Route path='/product/:pid' element={<ProductPage/>}/>
         <Route path='/auth' element={<AuthPage/>}>
           <Route index element={<Navigate to={"/auth/login"} replace/>}/>
           <Route path='/auth/login' element={<LoginPage/>}/>

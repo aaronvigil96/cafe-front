@@ -1,8 +1,10 @@
 import { Link } from "react-router";
-import { products } from "../db/product";
 import { ProductItemProps } from "../interfaces/product-item.interface";
+import { useProductsStore } from "../stores/products.store";
 
 const ProductsPage = () => {
+
+    const {products} = useProductsStore();
 
     const totalProducts:ProductItemProps[] = products;
 

@@ -2,12 +2,21 @@ import useEmblaCarousel from "embla-carousel-react";
 import CarrouselProduct from "../components/CarrouselProduct";
 import PromoItem from "../components/PromoItem";
 import Autoplay from "embla-carousel-autoplay";
-import { products } from "../db/product";
+import { useEffect, useState } from "react";
+import { ProductItemProps } from "../interfaces/product-item.interface";
+import { useProductsStore } from "../stores/products.store";
 
 
 const HomePage = () => {
 
-    const slides = products;
+    const {products} = useProductsStore();
+    const [slides, setSlides] = useState<ProductItemProps[]>([]);
+
+    useEffect(() => {
+        const items = products.filter(product => product.offert);
+        setSlides(items);
+    },[products])
+
 
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({delay: 3000})]);
 
@@ -24,7 +33,7 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="max-w-max mx-auto">
-                    <h2 className="text-center font-black text-4xl">NUESTROS PRODUCTOS</h2>
+                    <h2 className="text-center font-black text-4xl">PRODUCTOS DESTACADOS</h2>
                     <hr className="text-amber-300"/>
                 </div>
             <div className="max-w-5xl w-full embla mx-auto" ref={emblaRef}>

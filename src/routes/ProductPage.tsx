@@ -1,10 +1,12 @@
 import { Link, useParams } from "react-router";
-import { ProductsItemProps } from "../interfaces/products-item.interface";
 import { ProductItemProps } from "../interfaces/product-item.interface";
 import { useCartStore } from "../stores/cart.store";
 import { useEffect, useState } from "react";
+import { useProductsStore } from "../stores/products.store";
 
-const ProductPage = ({products}:ProductsItemProps) => {
+const ProductPage = () => {
+
+    const {products} = useProductsStore();
 
     let {pid} = useParams();
 

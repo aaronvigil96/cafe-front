@@ -5,4 +5,5 @@ export interface ProductItemProps {
     description?: string;
     grams?: number;
     stock:number;
+    offert:boolean;
 }
