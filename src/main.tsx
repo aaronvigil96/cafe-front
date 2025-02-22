@@ -1,8 +1,8 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import HomePage from './routes/HomePage'
-import { BrowserRouter, Navigate, replace, Route, Routes } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import ProductPage from './routes/ProductPage'
 import { products } from './db/product'
@@ -11,11 +11,23 @@ import Footer from './components/Footer'
 import LoginPage from './routes/LoginPage'
 import RegisterPage from './routes/RegisterPage'
 import AuthPage from './routes/AuthPage'
+import DashboardPage from './routes/DashboardPage'
+import DashboardHomePage from './routes/DashboardHomePage'
+import DashboardProductPage from './routes/DashboardProductPage';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <NavBar/>
+
+const Layout = () => {
+
+  const location = useLocation();
+  const [hideLayout, setHideLayout] = useState(false);
+
+  useEffect(() => {
+    setHideLayout(location.pathname.startsWith('/dashboard'));
+  },[location.pathname])
+
+  return(
+    <>
+      {!hideLayout && <NavBar/>}
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/product' element={<ProductsPage/>}/>
@@ -25,8 +37,22 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/auth/login' element={<LoginPage/>}/>
           <Route path='/auth/register' element={<RegisterPage/>}/>
         </Route>
+        <Route path='/dashboard' element={<DashboardPage/>}>
+          <Route index element={<Navigate to={"/dashboard/home"} replace />} />
+          <Route path='/dashboard/home' element={<DashboardHomePage/>}/>
+          <Route path='/dashboard/product' element={<DashboardProductPage/>}/>
+        </Route>
       </Routes>
-      <Footer/>
+      {!hideLayout && <Footer/>}
+    </>
+  )
+}
+
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Layout/>
     </BrowserRouter>
   </StrictMode>,
 )
