@@ -3,7 +3,7 @@ export interface ProductItemProps {
     name: string;
     price: number;
     description?: string;
-    grams?: number;
     stock:number;
     offert:boolean;
+    image: string;
 }

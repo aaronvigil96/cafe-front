@@ -15,11 +15,11 @@ const ProductsPage = () => {
             </nav>
             <div className="flex flex-wrap justify-center">
                 {
-                    totalProducts.map(({id, name}) => (
+                    totalProducts.map(({id, name, image}) => (
                         <div key={id} className="bg-white m-2 rounded-sm shadow">
                             <Link to={`/product/${id}`}>
                                 <div className="w-44 flex flex-col mx-auto rounded-sm cursor-pointer">
-                                    <img className="w-full mx-auto p-4 drop-shadow-xs" src="bag-coffee.png"/>
+                                    <img className="w-full h-56 mx-auto p-4 drop-shadow-xs" src={`/${image}`}/>
                                     <p className="text-center capitalize font-semibold">{name}</p>
                                 </div>
                             </Link>

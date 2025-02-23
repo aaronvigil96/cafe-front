@@ -8,15 +8,16 @@ const CartItem = ({id, name, quantity, image, price}:CartItemProps) => {
     const increase = useCartStore().increaseQuantity;
     const decrease = useCartStore().decreaseQuantity;
 
+    console.log(image);
+
     return(
         <div className="mt-2 flex items-center justify-between gap-4 p-2 shadow">
             <div className="flex gap-4 items-center">
-                <div className="w-10 shadow">
-                    <img className="w-full" src={`${image}`}/>
+                <div className="w-10 h-16 shadow flex items-center">
+                    <img className="w-full" src={`/${image}`}/>
                 </div>
                 <div className="w-24">
                     <p className="capitalize font-bold w-48 truncate">{name}</p>
-                    <p>1000gr</p>
                 </div>
             </div>
             <div className="flex items-center justify-center">
@@ -30,7 +31,7 @@ const CartItem = ({id, name, quantity, image, price}:CartItemProps) => {
                     <FiPlus className="text-2xl"/>
                 </div>
             </div>
-            <p className="font-bold">{price * quantity}</p>
+            <p className="font-bold">${price * quantity}</p>
         </div>
     )
 }

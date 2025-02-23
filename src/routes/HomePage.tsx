@@ -32,13 +32,22 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-max mx-auto">
-                    <h2 className="text-center font-black text-4xl">PRODUCTOS DESTACADOS</h2>
-                    <hr className="text-amber-300"/>
-                </div>
-            <div className="max-w-5xl w-full embla mx-auto" ref={emblaRef}>
-                <CarrouselProduct slides={slides}/>
-            </div>
+            {
+                slides.length 
+                ? 
+                <>
+                    <div className="max-w-max mx-auto">
+                        <h2 className="text-center font-black text-4xl">PRODUCTOS DESTACADOS</h2>
+                        <hr className="text-amber-300"/>
+                    </div>
+                    <div className="max-w-5xl w-full embla mx-auto" ref={emblaRef}>
+                        <CarrouselProduct slides={slides}/>
+                    </div>
+                </>
+                :
+                ""
+            }
+            
             <div className="max-w-5xl mx-auto w-full my-2">
                 <div className="mx-auto w-full flex flex-wrap md:flex-nowrap gap-2">
                     <PromoItem bg="/cafetera-banner.jpg" subtitle="las cafeteras" title="la versatilidad de las cafeteras"/>
