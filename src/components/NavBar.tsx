@@ -25,6 +25,25 @@ const NavBar = () => {
         setCart(!cart);
     }
 
+    const handleButton = async () => {
+
+        console.log(cartStore);
+
+        try{
+            const response = await fetch('http://localhost:3000/create-preference', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(cartStore)
+            })
+            const data = await response.json();
+            window.location.href = data.init_point;
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
         <>
             <MessageHeader/>
@@ -63,7 +82,7 @@ const NavBar = () => {
                         <div className="p-2">
                             <hr className="px-2"/>
                             <p className="text-2xl">Total: <span className="font-bold text-2xl">${total.toFixed(2)}</span></p>
-                            <button className=" cursor-pointer w-full p-2 mt-2 bg-blue-500 text-white rounded-sm">Comprar</button>
+                            <button onClick={() => handleButton()} className="cursor-pointer w-full p-2 mt-2 bg-blue-500 text-white rounded-sm">Comprar</button>
                         </div>
                     </div>
                 </div>

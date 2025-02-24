@@ -25,25 +25,27 @@ const Layout = () => {
   },[location.pathname])
 
   return(
-    <>
+    <div className={`${!hideLayout ? "flex flex-col min-h-screen" : ""}`}>
       {!hideLayout && <NavBar/>}
-      <Routes>
-        <Route path='/' element={<HomePage/>}/>
-        <Route path='/product' element={<ProductsPage/>}/>
-        <Route path='/product/:pid' element={<ProductPage/>}/>
-        <Route path='/auth' element={<AuthPage/>}>
-          <Route index element={<Navigate to={"/auth/login"} replace/>}/>
-          <Route path='/auth/login' element={<LoginPage/>}/>
-          <Route path='/auth/register' element={<RegisterPage/>}/>
-        </Route>
-        <Route path='/dashboard' element={<DashboardPage/>}>
-          <Route index element={<Navigate to={"/dashboard/home"} replace />} />
-          <Route path='/dashboard/home' element={<DashboardHomePage/>}/>
-          <Route path='/dashboard/product' element={<DashboardProductPage/>}/>
-        </Route>
-      </Routes>
+      <div className={`${!hideLayout ? "flex-1" : ""}`}>
+        <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='/product' element={<ProductsPage/>}/>
+          <Route path='/product/:pid' element={<ProductPage/>}/>
+          <Route path='/auth' element={<AuthPage/>}>
+            <Route index element={<Navigate to={"/auth/login"} replace/>}/>
+            <Route path='/auth/login' element={<LoginPage/>}/>
+            <Route path='/auth/register' element={<RegisterPage/>}/>
+          </Route>
+          <Route path='/dashboard' element={<DashboardPage/>}>
+            <Route index element={<Navigate to={"/dashboard/home"} replace />} />
+            <Route path='/dashboard/home' element={<DashboardHomePage/>}/>
+            <Route path='/dashboard/product' element={<DashboardProductPage/>}/>
+          </Route>
+        </Routes>
+      </div>
       {!hideLayout && <Footer/>}
-    </>
+    </div>
   )
 }
 

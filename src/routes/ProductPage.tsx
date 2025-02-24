@@ -33,7 +33,7 @@ const ProductPage = () => {
             <div className="mx-auto w-60 h-60">
                 <img className="w-full h-full object-contain" src={`/${product.image}`}/>
             </div>
-            <div className="flex flex-col mt-2">
+            <div className="flex flex-col mt-2 md:w-60">
                 <div>
                     <nav>
                         <Link className="text-slate-400 hover:text-black transition-colors ease-in-out duration-300 capitalize" to={'/'}>home / </Link><Link className="text-slate-400 hover:text-black transition-colors ease-in-out duration-300 capitalize" to={'/product'}>tienda / </Link><span className="capitalize">{product.name}</span>

@@ -1,32 +1,29 @@
-import { FaEdit } from "react-icons/fa";
 import { useProductsStore } from "../stores/products.store";
-import { MdModeEdit } from "react-icons/md";
 
 const DashboardProductPage = () => {
 
-    const {products, toggleOffert} = useProductsStore();
+    const {products, toggleOffert, updateProduct} = useProductsStore();
 
     const handleToggleChange = (id:number) => {
         toggleOffert(id);
+    }
+
+    const handleChange = (id:number, field:any, value:any) => {
+        updateProduct(id, {[field]:value});
     }
 
 
     return(
         <div className="h-full rounded ml-2 overflow-y-auto">
             <h1 className="text-white text-3xl">Productos</h1>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap mt-2">
             {
                 products?.map(({id, name, offert, price, stock, description}) => (
                     <div key={id} className="shadow w-60 bg-slate-900 rounded mx-auto sm:mx-0 p-4 border border-yellow-700">
-                        <div className="flex justify-end">
-                            <div className="border text-white p-1 cursor-pointer rounded">
-                            <MdModeEdit className="text-xl" />
-                            </div>
-                        </div>
                         <div>
-                            <h2 className="text-2xl font-bold text-white capitalize">{name}</h2>
+                            <input type="text" className="text-white text-2xl font-bold capitalize w-full" value={name} onChange={(e) => handleChange(id, 'name', e.target.value)}/>
                         </div>
-                        <p className="text-white text-xl">{description}</p>
+                        <input type="text" className="text-white text-xl w-full border-b border-amber-600 focus:outline-none" value={description} onChange={(e) => handleChange(id, 'description', e.target.value)}/>
                         <div className="flex items-center gap-1">
                             <p className="inline-block text-xl gap-2 text-white">Destacado: </p>
                             <label className="inline-block cursor-pointer relative w-[34px] h-[20px]">
@@ -36,7 +33,10 @@ const DashboardProductPage = () => {
                             </label>
                         </div>
                         <p className="text-white text-xl">Precio: ${price}</p>
-                        <p className="text-white text-xl">stock: {stock}</p>
+                        <div className="flex w-full gap-2">
+                            <p className="text-white text-xl capitalize">stock:</p>
+                            <input type="number" min={0} value={stock} className="inline w-full text-white text-xl" onChange={(e) => handleChange(id, 'stock', e.target.value)}/>
+                        </div>
                     </div>
                 ))
             }
