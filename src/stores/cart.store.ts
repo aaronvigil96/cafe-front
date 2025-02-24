@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface CartItem {
+export interface CartItem {
     id: number;
     name: string;
     image: string;
@@ -16,7 +16,8 @@ interface CartStore {
     increaseQuantity: (id: number) => void;
     decreaseQuantity: (id: number) => void;
     getPriceByProduct: (id:number) => number;
-    getTotalCountProduct: () => number;
+    getTotalCountProducts: () => number;
+    getTotalCountProductById: (id:number) => number;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
@@ -44,7 +45,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
         const item = get().cart.find((item) => item.id === id);
         return item ? item.price * item.quantity : 0;
     },
-    getTotalCountProduct: () => {
+    getTotalCountProducts: () => {
         return get().cart.reduce((total, item) => total + item.quantity, 0);
+    },
+    getTotalCountProductById: (id:number) => {
+        const item = get().cart.find((item) => item.id === id);
+        return item ? item.quantity : 0;
     }
 }))

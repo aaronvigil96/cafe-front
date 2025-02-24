@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router";
 import { ProductItemProps } from "../interfaces/product-item.interface";
-import { useCartStore } from "../stores/cart.store";
+import { CartItem, useCartStore } from "../stores/cart.store";
 import { useEffect, useState } from "react";
 import { useProductsStore } from "../stores/products.store";
 
@@ -26,7 +26,15 @@ const ProductPage = () => {
         return <h2>Producto no encontrado</h2>
     }
 
-    const addCartStoreProduct = useCartStore().addToCart;
+    const addProduct = useCartStore().addToCart;
+    const getTotalCountProductById = useCartStore().getTotalCountProductById;
+
+    const addCartStoreProduct = (cartItem:CartItem) => {
+        addProduct(cartItem);
+        if(getTotalCountProductById(cartItem.id) >= product.stock ){
+            setIsValid(false);
+        }
+    }
 
     return(
         <div className="max-w-3xl mx-auto sm:flex my-4 p-4">

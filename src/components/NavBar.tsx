@@ -12,7 +12,7 @@ const NavBar = () => {
     const [cart, setCart] = useState(false);
     const cartStore = useCartStore().cart;
     const total = useCartStore().getTotalPrice();
-    const totalCountProductCart = useCartStore().getTotalCountProduct()
+    const totalCountProductCart = useCartStore().getTotalCountProducts()
 
     useEffect(() => {
         document.documentElement.style.overflow = cart ? "hidden" : "";
