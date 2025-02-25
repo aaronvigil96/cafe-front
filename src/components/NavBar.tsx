@@ -27,8 +27,6 @@ const NavBar = () => {
 
     const handleButton = async () => {
 
-        console.log(cartStore);
-
         try{
             const response = await fetch('http://localhost:3000/create-preference', {
                 method: 'POST',

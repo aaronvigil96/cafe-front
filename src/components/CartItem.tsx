@@ -2,13 +2,23 @@ import { FiPlus } from "react-icons/fi";
 import { CartItemProps } from "../interfaces/cart-item.interface";
 import { GoDash } from "react-icons/go";
 import { useCartStore } from "../stores/cart.store";
+import { useProductsStore } from "../stores/products.store";
 
 const CartItem = ({id, name, quantity, image, price}:CartItemProps) => {
 
-    const increase = useCartStore().increaseQuantity;
     const decrease = useCartStore().decreaseQuantity;
+    const getProductStock = useProductsStore().getProductStock;
+    const increase = useCartStore().increaseQuantity;
 
-    console.log(image);
+    const isValid = quantity < getProductStock(id);
+
+    const handleButton = () => {
+        if(isValid){
+            increase(id);
+        }
+    }
+
+    console.log(isValid);
 
     return(
         <div className="mt-2 flex items-center justify-between gap-4 p-2 shadow">
@@ -27,9 +37,9 @@ const CartItem = ({id, name, quantity, image, price}:CartItemProps) => {
                 <div className="w-8 h-8 flex items-center justify-center">
                     <p className="font-bold text-green-800">{quantity}</p>
                 </div>
-                <div onClick={() => increase(id)} className="w-8 h-8 shadow flex items-center justify-center cursor-pointer hover:bg-green-800 hover:text-white transition-colors duration-300 ease-in-out">
+                <button disabled={!isValid} onClick={() => handleButton()} className={`disabled:text-red-500 disabled:cursor-not-allowed disabled:hover:bg-transparent w-8 h-8 shadow flex items-center justify-center cursor-pointer hover:bg-green-800 hover:text-white transition-colors duration-300 ease-in-out`}>
                     <FiPlus className="text-2xl"/>
-                </div>
+                </button>
             </div>
             <p className="font-bold">${price * quantity}</p>
         </div>

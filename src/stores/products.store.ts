@@ -5,9 +5,10 @@ interface ProductsStore {
     products: ProductItemProps[];
     toggleOffert: (id: number) => void;
     updateProduct: (id:number, updateProduct: Partial<ProductItemProps>) => void;
+    getProductStock: (id:number) => number;
 }
 
-export const useProductsStore = create<ProductsStore>((set) => ({
+export const useProductsStore = create<ProductsStore>((set, get) => ({
     products: [
         {id: 1, name: 'cafe argentino', offert: true, price: 1000, stock: 200, description:'cafe totalmente rico', grams:1200, image:"bag-coffee.png"},
         {id: 2, name: 'cafe arábico', offert: true, price: 9500, stock: 2, description:'Café sútil, delicado y elegante con un gran equilibrio entre sabor y cuerpo.', grams:300, image: "bag-coffee.png"},
@@ -19,5 +20,9 @@ export const useProductsStore = create<ProductsStore>((set) => ({
     })),
     updateProduct: (id:number, updateProduct) => set((state) => ({
         products: state.products.map((product) => product.id === id ? {...product, ...updateProduct} : product)
-    }))
+    })),
+    getProductStock: (id:number) => {
+        const product = get().products.find((item) => item.id === id);
+        return product ? product.stock : 0;
+    }
 }))

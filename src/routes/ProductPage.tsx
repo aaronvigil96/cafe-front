@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router";
 import { ProductItemProps } from "../interfaces/product-item.interface";
 import { CartItem, useCartStore } from "../stores/cart.store";
-import { useEffect, useState } from "react";
 import { useProductsStore } from "../stores/products.store";
 
 const ProductPage = () => {
@@ -10,17 +9,7 @@ const ProductPage = () => {
 
     let {pid} = useParams();
 
-    const [isValid, setIsValid] = useState(true);
-
     const product = products.find((product:ProductItemProps) => product.id.toString() === pid);
-
-    useEffect(() => {
-        if(product?.stock !== undefined && product.stock <= 0) {
-            setIsValid(false);
-        }else {
-            setIsValid(true);
-        }
-    },[product]);
 
     if(!product){
         return <h2>Producto no encontrado</h2>
@@ -29,11 +18,10 @@ const ProductPage = () => {
     const addProduct = useCartStore().addToCart;
     const getTotalCountProductById = useCartStore().getTotalCountProductById;
 
-    const addCartStoreProduct = (cartItem:CartItem) => {
+    const isValid = product.stock > getTotalCountProductById(product.id);
+
+    const addCartStoreProduct = (cartItem: CartItem) => {
         addProduct(cartItem);
-        if(getTotalCountProductById(cartItem.id) >= product.stock ){
-            setIsValid(false);
-        }
     }
 
     return(
