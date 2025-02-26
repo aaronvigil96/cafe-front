@@ -74,7 +74,7 @@ const NavBar = () => {
                         </div>
                         <div className="flex-1 p-2 overflow-y-auto max-h-[70vh]">
                             {
-                                cartStore?.map(product => <CartItem key={product.id} id={product.id} price={product.price} image={product.image} name={product.name} quantity={product.quantity}/>)
+                                cartStore?.map(product => <CartItem key={product.id} id={product.id} price={product.price} image={product.image} name={product.title} quantity={product.quantity}/>)
                             }
                         </div>
                         <div className="p-2">

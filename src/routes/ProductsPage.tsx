@@ -1,10 +1,16 @@
 import { Link } from "react-router";
 import { ProductItemProps } from "../interfaces/product-item.interface";
-import { useProductsStore } from "../stores/products.store";
+import { useEffect, useState } from "react";
 
 const ProductsPage = () => {
 
-    const {products} = useProductsStore();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/products')
+        .then(res => res.json())
+        .then(data => setProducts(data));
+    },[])
 
     const totalProducts:ProductItemProps[] = products;
 
@@ -15,12 +21,12 @@ const ProductsPage = () => {
             </nav>
             <div className="flex flex-wrap justify-center">
                 {
-                    totalProducts.map(({id, name, image}) => (
+                    totalProducts.map(({id, title, image}) => (
                         <div key={id} className="bg-white m-2 rounded-sm shadow">
                             <Link to={`/product/${id}`}>
                                 <div className="w-44 flex flex-col mx-auto rounded-sm cursor-pointer">
                                     <img className="w-full h-56 mx-auto p-4 drop-shadow-xs" src={`/${image}`}/>
-                                    <p className="text-center capitalize font-semibold">{name}</p>
+                                    <p className="text-center capitalize font-semibold">{title}</p>
                                 </div>
                             </Link>
                         </div>

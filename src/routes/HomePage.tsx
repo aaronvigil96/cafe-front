@@ -4,18 +4,17 @@ import PromoItem from "../components/PromoItem";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 import { ProductItemProps } from "../interfaces/product-item.interface";
-import { useProductsStore } from "../stores/products.store";
 
 
 const HomePage = () => {
-
-    const {products} = useProductsStore();
+    
     const [slides, setSlides] = useState<ProductItemProps[]>([]);
 
     useEffect(() => {
-        const items = products.filter(product => product.offert);
-        setSlides(items);
-    },[products])
+        fetch('http://localhost:3000/products')
+        .then(res => res.json())
+        .then(data => setSlides(data))
+    },[])
 
 
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({delay: 3000})]);

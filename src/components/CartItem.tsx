@@ -2,23 +2,29 @@ import { FiPlus } from "react-icons/fi";
 import { CartItemProps } from "../interfaces/cart-item.interface";
 import { GoDash } from "react-icons/go";
 import { useCartStore } from "../stores/cart.store";
-import { useProductsStore } from "../stores/products.store";
+import { useEffect, useState } from "react";
+import { ProductItemProps } from "../interfaces/product-item.interface";
 
 const CartItem = ({id, name, quantity, image, price}:CartItemProps) => {
 
     const decrease = useCartStore().decreaseQuantity;
-    const getProductStock = useProductsStore().getProductStock;
     const increase = useCartStore().increaseQuantity;
 
-    const isValid = quantity < getProductStock(id);
+    const [product, setProduct] = useState<ProductItemProps | null>(null);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/products/${id}`)
+        .then(res => res.json())
+        .then(data => setProduct(data))
+    }, []);
+
+    const isValid = product ? quantity < product.stock : false;
 
     const handleButton = () => {
         if(isValid){
             increase(id);
         }
     }
-
-    console.log(isValid);
 
     return(
         <div className="mt-2 flex items-center justify-between gap-4 p-2 shadow">

@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export interface CartItem {
     id: number;
-    name: string;
+    title: string;
     image: string;
     quantity: number;
     price: number;

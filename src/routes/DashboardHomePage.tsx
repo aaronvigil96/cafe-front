@@ -1,9 +1,15 @@
 import { NavLink } from "react-router";
-import { useProductsStore } from "../stores/products.store";
+import { useEffect, useState } from "react";
 
 const DashboardHomePage = () => {
 
-    const {products} = useProductsStore();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/products')
+        .then(res => res.json())
+        .then(data => setProducts(data));
+    },[])
 
     return(
         <div className="h-full rounded ml-2">
