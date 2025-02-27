@@ -13,9 +13,13 @@ const HomePage = () => {
     useEffect(() => {
         fetch('http://localhost:3000/products')
         .then(res => res.json())
-        .then(data => setSlides(data))
+        .then(data => {
+            const items = data.filter((item:any) => item.offert === true);
+            setSlides(items);
+        })
     },[])
 
+    console.log(slides);
 
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({delay: 3000})]);
 

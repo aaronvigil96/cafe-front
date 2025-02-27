@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProductItemProps } from "../interfaces/product-item.interface";
+import CreateProduct from "../components/CreateProduct";
 
 const DashboardProductPage = () => {
 
@@ -9,8 +10,12 @@ const DashboardProductPage = () => {
     useEffect(() => {
         fetch('http://localhost:3000/products')
         .then(res => res.json())
-        .then(data => setProducts(data))
+        .then(data => {
+            setProducts(data)
+        })
     }, []);
+
+    console.log(products);
 
     const handleChange = (id:number,name: keyof ProductItemProps, value: string | number | boolean) => {
         setEditedProducts((prev) => ({
@@ -59,7 +64,7 @@ const DashboardProductPage = () => {
             <h1 className="text-white text-3xl">Productos</h1>
             <div className="flex gap-2 flex-wrap mt-2">
             {
-                products?.map(({id, title, offert, price, stock, description}) => (
+                products?.map(({id, title, offert, price, stock, description, image}) => (
                     <form onSubmit={(e) => handleSubmit(e,id)} key={id} className="shadow w-60 bg-slate-900 rounded mx-auto sm:mx-0 p-4 border border-yellow-700">
                         <div>
                             <input type="text" onChange={(e) => handleChange(id, 'title', e.target.value)} className="text-white text-2xl font-bold capitalize w-full" value={editedProducts[id]?.title ?? title}/>
@@ -81,11 +86,16 @@ const DashboardProductPage = () => {
                             <p className="text-white text-xl capitalize">stock:</p>
                             <input type="number" onChange={(e) => handleChange(id, 'stock', e.target.value)} min={0} value={editedProducts[id]?.stock ?? stock} className="inline w-full text-white text-xl"/>
                         </div>
+                        <div className="flex w-full gap-2">
+                            <p className="text-white text-xl capitalize">imagen:</p>
+                            <input type="text" onChange={(e) => handleChange(id, 'image', e.target.value)} value={editedProducts[id]?.image ?? image} className="inline w-full text-white text-xl"/>
+                        </div>
                         <button type="submit" className="cursor-pointer text-white p-2 bg-amber-700 w-full rounded-sm font-bold uppercase">actualizar</button>
                     </form>
                 ))
             }
             </div>
+            <CreateProduct/>
         </div>
     )
 }
