@@ -62,6 +62,7 @@ const DashboardProductPage = () => {
     return(
         <div className="h-full rounded ml-2 overflow-y-auto">
             <h1 className="text-white text-3xl">Productos</h1>
+            <CreateProduct/>
             <div className="flex gap-2 flex-wrap mt-2">
             {
                 products?.map(({id, title, offert, price, stock, description, image}) => (
@@ -95,7 +96,6 @@ const DashboardProductPage = () => {
                 ))
             }
             </div>
-            <CreateProduct/>
         </div>
     )
 }
