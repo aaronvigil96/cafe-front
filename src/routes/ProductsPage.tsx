@@ -21,6 +21,7 @@ const ProductsPage = () => {
             </nav>
             <div className="flex flex-wrap justify-center">
                 {
+                    totalProducts.length != 0 ? 
                     totalProducts.map(({id, title, image}) => (
                         <div key={id} className="bg-white m-2 rounded-sm shadow">
                             <Link to={`/product/${id}`}>
@@ -31,6 +32,8 @@ const ProductsPage = () => {
                             </Link>
                         </div>
                     ))
+                    :
+                    <h3 className="text-2xl">No hay articulos públicados</h3>
                 }
             </div>
         </div>

@@ -14,7 +14,7 @@ const NavBarDashboard = () => {
     }
 
     return(
-        <nav className={`h-full ${ menuIsActive ? "w-20" : "w-5"} md:w-20 bg-slate-700 pt-2 relative transition-all duration-300 ease-in-out border-r border-yellow-700`}>
+        <nav className={`h-full ${ menuIsActive ? "w-20" : "w-5"} md:w-20 bg-slate-700 pt-2 relative transition-all duration-300 ease-in-out border-r border-yellow-700 z-10`}>
             <div onClick={toggleMenu} className="absolute right-[-15px] rounded bg-slate-200 cursor-pointer md:hidden">
                 <RxDoubleArrowLeft className={`${menuIsActive ? "" : "rotate-180"}  text-black text-3xl transition-transform duration-300 ease-in-out`}/>
             </div>

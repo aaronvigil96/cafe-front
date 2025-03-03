@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useProductStore } from "../stores/product.store";
 
 const CreateProduct = () => {
+
+    const { fetchProducts } = useProductStore();
 
     const [formData, setFormData] = useState({
         title: "",
@@ -29,6 +32,7 @@ const CreateProduct = () => {
             })
             .then(res => res.json())
             .then(data => console.log(data));
+            fetchProducts();
         }catch(err){
             console.log('error');
         }
@@ -36,7 +40,7 @@ const CreateProduct = () => {
     }
 
     return(
-        <form onSubmit={handleSubmit} className="border border-yellow-700 w-80 p-2 flex flex-col gap-1 mt-2">
+        <form onSubmit={handleSubmit} className="border border-yellow-700 w-80 p-2 flex flex-col gap-1 mt-2 z-50 bg-gray-900">
             <div className="flex text-white text-xl gap-2">
                 <p>Titulo:</p>
                 <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Café Argentino"/>

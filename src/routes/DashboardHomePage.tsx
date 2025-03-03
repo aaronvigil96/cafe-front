@@ -1,14 +1,13 @@
 import { NavLink } from "react-router";
 import { useEffect, useState } from "react";
+import { useProductStore } from "../stores/product.store";
 
 const DashboardHomePage = () => {
 
-    const [products, setProducts] = useState([]);
+    const {products, fetchProducts} = useProductStore();
 
     useEffect(() => {
-        fetch('http://localhost:3000/products')
-        .then(res => res.json())
-        .then(data => setProducts(data));
+        fetchProducts();
     },[])
 
     return(

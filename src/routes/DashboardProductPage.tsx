@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProductItemProps } from "../interfaces/product-item.interface";
-import CreateProduct from "../components/CreateProduct";
+import { MdDelete } from "react-icons/md";
 
 const DashboardProductPage = () => {
 
@@ -15,13 +15,24 @@ const DashboardProductPage = () => {
         })
     }, []);
 
-    console.log(products);
-
     const handleChange = (id:number,name: keyof ProductItemProps, value: string | number | boolean) => {
         setEditedProducts((prev) => ({
             ...prev,
             [id]: { ...prev[id], [name]:value }
         }))
+    }
+
+    const handleDelete = async (id:number) => {
+        try{
+            await fetch(`http://localhost:3000/products/${id}`, {
+                method: 'DELETE',
+            });
+            const res = await fetch('http://localhost:3000/products')
+            const data = await res.json();
+            setProducts(data);
+        }catch(err){
+            console.log(err);
+        }
     }
 
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>, id:number) => {
@@ -60,13 +71,18 @@ const DashboardProductPage = () => {
 
 
     return(
-        <div className="h-full rounded ml-2 overflow-y-auto">
+        <div className="h-full rounded ml-2 overflow-y-auto relative">
             <h1 className="text-white text-3xl">Productos</h1>
-            <CreateProduct/>
             <div className="flex gap-2 flex-wrap mt-2">
             {
+                products.length != 0 ? 
                 products?.map(({id, title, offert, price, stock, description, image}) => (
                     <form onSubmit={(e) => handleSubmit(e,id)} key={id} className="shadow w-60 bg-slate-900 rounded mx-auto sm:mx-0 p-4 border border-yellow-700">
+                        <div className="flex justify-end" onClick={(e) => handleDelete(id)}>
+                            <div className="p-2 max-w-max cursor-pointer">
+                                <MdDelete className="text-white text-2xl"/>
+                            </div>
+                        </div>
                         <div>
                             <input type="text" onChange={(e) => handleChange(id, 'title', e.target.value)} className="text-white text-2xl font-bold capitalize w-full" value={editedProducts[id]?.title ?? title}/>
                         </div>
@@ -94,6 +110,8 @@ const DashboardProductPage = () => {
                         <button type="submit" className="cursor-pointer text-white p-2 bg-amber-700 w-full rounded-sm font-bold uppercase">actualizar</button>
                     </form>
                 ))
+                :
+                <h3 className="text-white text-2xl">No hay productos para mostrar</h3>
             }
             </div>
         </div>
