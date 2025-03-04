@@ -11,6 +11,7 @@ const NavBar = () => {
 
     const [cart, setCart] = useState(false);
     const cartStore = useCartStore().cart;
+    const clearCart = useCartStore().clearCart;
     const total = useCartStore().getTotalPrice();
     const totalCountProductCart = useCartStore().getTotalCountProducts()
 
@@ -27,16 +28,28 @@ const NavBar = () => {
 
     const handleButton = async () => {
 
+        const items = cartStore.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+        }));
+
         try{
-            const response = await fetch('http://localhost:3000/create-preference', {
+            fetch('http://localhost:3000/order', {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type":"application/json"
                 },
-                body: JSON.stringify(cartStore)
+                body: JSON.stringify(items)
             })
-            const data = await response.json();
-            window.location.href = data.init_point;
+            .then(res => {
+                console.log(res);
+                res.json()
+            })
+            .then(data => {
+                console.log(data);
+                clearCart();
+                window.location.reload();
+            })
         }catch(err){
             console.log(err);
         }

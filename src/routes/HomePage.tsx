@@ -14,7 +14,7 @@ const HomePage = () => {
         fetch('http://localhost:3000/products')
         .then(res => res.json())
         .then(data => {
-            const items = data.filter((item:any) => item.offert === true);
+            const items = data.filter((item:any) => item.offert === true).filter((item:any) => item.isActive === true);
             setSlides(items);
         })
     },[])

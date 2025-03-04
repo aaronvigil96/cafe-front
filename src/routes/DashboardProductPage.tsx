@@ -22,19 +22,6 @@ const DashboardProductPage = () => {
         }))
     }
 
-    const handleDelete = async (id:number) => {
-        try{
-            await fetch(`http://localhost:3000/products/${id}`, {
-                method: 'DELETE',
-            });
-            const res = await fetch('http://localhost:3000/products')
-            const data = await res.json();
-            setProducts(data);
-        }catch(err){
-            console.log(err);
-        }
-    }
-
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>, id:number) => {
         e.preventDefault();
 
@@ -76,13 +63,8 @@ const DashboardProductPage = () => {
             <div className="flex gap-2 flex-wrap mt-2">
             {
                 products.length != 0 ? 
-                products?.map(({id, title, offert, price, stock, description, image}) => (
-                    <form onSubmit={(e) => handleSubmit(e,id)} key={id} className="shadow w-60 bg-slate-900 rounded mx-auto sm:mx-0 p-4 border border-yellow-700">
-                        <div className="flex justify-end" onClick={(e) => handleDelete(id)}>
-                            <div className="p-2 max-w-max cursor-pointer">
-                                <MdDelete className="text-white text-2xl"/>
-                            </div>
-                        </div>
+                products?.map(({id, title, offert, price, stock, description, image, isActive}) => (
+                    <form onSubmit={(e) => handleSubmit(e,id)} key={id} className="shadow w-60 bg-slate-900 rounded sm:mx-0 p-4 border border-yellow-700">
                         <div>
                             <input type="text" onChange={(e) => handleChange(id, 'title', e.target.value)} className="text-white text-2xl font-bold capitalize w-full" value={editedProducts[id]?.title ?? title}/>
                         </div>
@@ -95,13 +77,21 @@ const DashboardProductPage = () => {
                                 <span className="absolute top-0.6 left-[4px] bottom-[4px] w-[13px] h-[13px] bg-white rounded-full transition-all peer-checked:translate-x-[0px] peer-not-checked:translate-x-[12px]"></span>
                             </label>
                         </div>
+                        <div className="flex items-center gap-1">
+                            <p className="inline-block text-xl gap-2 text-white">Activo: </p>
+                            <label className="inline-block cursor-pointer relative w-[34px] h-[20px]">
+                                <input type="checkbox" className="w-0 h-0 opacity-0 peer" checked={editedProducts[id]?.isActive ?? isActive} onChange={(e) => handleChange(id, 'isActive', e.target.checked)}/>
+                                <span className="absolute top-0 left-0 right-0 bottom-0 peer-not-checked:bg-slate-500 before:content-[''] before:h-[13px] before:w-[13px] before:left-[4px] before:bottom-[4px] before:bg-white peer-checked:bg-blue-500 rounded-[34px]"></span>
+                                <span className="absolute top-0.6 left-[4px] bottom-[4px] w-[13px] h-[13px] bg-white rounded-full transition-all peer-checked:translate-x-[0px] peer-not-checked:translate-x-[12px]"></span>
+                            </label>
+                        </div>
                         <div className="flex items-center">
                             <p className="text-white text-xl">$</p>
-                            <input type="number" onChange={(e) => handleChange(id, 'price', e.target.value)} className="text-white text-xl w-full" value={editedProducts[id]?.price ?? price}/>
+                            <input type="number" onChange={(e) => handleChange(id, 'price', e.target.value)} className="text-white text-xl w-full appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-number-spin-box]:appearance-none" value={editedProducts[id]?.price ?? price}/>
                         </div>
                         <div className="flex w-full gap-2">
                             <p className="text-white text-xl capitalize">stock:</p>
-                            <input type="number" onChange={(e) => handleChange(id, 'stock', e.target.value)} min={0} value={editedProducts[id]?.stock ?? stock} className="inline w-full text-white text-xl"/>
+                            <input type="number" onChange={(e) => handleChange(id, 'stock', e.target.value)} min={0} value={editedProducts[id]?.stock ?? stock} className="inline w-full text-white text-xl appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-number-spin-box]:appearance-none"/>
                         </div>
                         <div className="flex w-full gap-2">
                             <p className="text-white text-xl capitalize">imagen:</p>

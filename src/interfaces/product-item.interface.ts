@@ -6,4 +6,5 @@ export interface ProductItemProps {
     stock:number;
     offert:boolean;
     image: string;
+    isActive: boolean;
 }

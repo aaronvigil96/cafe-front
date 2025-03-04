@@ -9,7 +9,10 @@ const ProductsPage = () => {
     useEffect(() => {
         fetch('http://localhost:3000/products')
         .then(res => res.json())
-        .then(data => setProducts(data));
+        .then(data => {
+            const items = data.filter((item:any) => item.isActive === true);
+            setProducts(items);
+        });
     },[])
 
     const totalProducts:ProductItemProps[] = products;

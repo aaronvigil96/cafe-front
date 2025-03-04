@@ -13,6 +13,8 @@ import AuthPage from './routes/AuthPage'
 import DashboardPage from './routes/DashboardPage'
 import DashboardHomePage from './routes/DashboardHomePage'
 import DashboardProductPage from './routes/DashboardProductPage';
+import DashboardOrdersPage from './routes/DashboardOrdersPage';
+import DashboardOrderPage from './routes/DashboardOrderPage';
 
 
 const Layout = () => {
@@ -41,6 +43,8 @@ const Layout = () => {
             <Route index element={<Navigate to={"/dashboard/home"} replace />} />
             <Route path='/dashboard/home' element={<DashboardHomePage/>}/>
             <Route path='/dashboard/product' element={<DashboardProductPage/>}/>
+            <Route path='/dashboard/order' element={<DashboardOrdersPage/>}/>
+            <Route path='/dashboard/order/:id' element={<DashboardOrderPage/>}/>
           </Route>
         </Routes>
       </div>

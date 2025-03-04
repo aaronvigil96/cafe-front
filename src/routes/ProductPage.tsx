@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router";
 import { ProductItemProps } from "../interfaces/product-item.interface";
 import { useCartStore } from "../stores/cart.store";
 import { useEffect, useState } from "react";
-import CartItem from "../components/CartItem";
 
 const ProductPage = () => {
 
@@ -15,17 +14,16 @@ const ProductPage = () => {
     useEffect(() => {
         fetch('http://localhost:3000/products')
         .then(res => res.json())
-        .then(data => setProducts(data));
+        .then(data => {
+            const items = data.filter((item:any) => item.isActive === true);
+            setProducts(items);
+        });
     }, []);
-
-    if(products.length === 0){
-        return <h2>Cargando productos...</h2>
-    }
 
     const product = products.find((product:ProductItemProps) => product.id.toString() === pid);
 
     if(!product){
-        return <h2>Producto no encontrado</h2>
+        return <h2 className="text-center text-3xl mt-2">Ups ese producto no existe</h2>
     }
 
     const addCartStoreProduct = () => {

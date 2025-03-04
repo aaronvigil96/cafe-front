@@ -23,8 +23,8 @@ const DashboardPage = () => {
                 <div className="bg-slate-950 w-full h-full rounded p-2">
                     <Outlet/>
                 </div>
-                <div onClick={(e) => togglePopup(e)} className="absolute bottom-5 right-5 h-14 w-14 bg-green-700 flex justify-center items-center rounded-full">
-                    <IoIosAdd className="text-3xl text-white" />
+                <div onClick={(e) => togglePopup(e)} className="absolute bottom-5 right-5 h-14 w-14 bg-green-700 flex justify-center items-center rounded-full cursor-pointer group hover:bg-white transition-colors duration-300 ease-in-out">
+                    <IoIosAdd className="text-3xl text-white group-hover:text-green-700 transition-colors duration-300 ease-in-out"/>
                 </div>
                 <div onClick={closePopup} className={isPopupOpen ? `fixed w-full h-full bg-slate-950/60 flex justify-center items-center z-20` : "hidden"}>
                     <div onClick={(e) => e.stopPropagation()}>
