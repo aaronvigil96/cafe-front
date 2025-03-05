@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ProductItemProps } from "../interfaces/product-item.interface";
-import { MdDelete } from "react-icons/md";
 
 const DashboardProductPage = () => {
 

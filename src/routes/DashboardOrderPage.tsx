@@ -39,11 +39,9 @@ const DashboardOrderPage = () => {
 
     if(loading) return <h2 className="text-white text-center text-2xl">Cargando...</h2>
 
-    console.log(order);
-
     return (
-        <div className="text-white shadow-2xl bg-slate-500 p-2 rounded-md w-60">
-            <h3 className="text-2xl text-center">Información de la compra</h3>
+        <div className="text-white shadow-2xl border border-yellow-700 p-2 rounded-md w-60">
+            <h3 className="text-xl">Orden N°: {order.id}</h3>
             <div>
                 {
                     order?.items.map((item:any) => (<OrderItem key={item.id} item={item}/>))

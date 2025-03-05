@@ -46,7 +46,6 @@ const NavBar = () => {
                 res.json()
             })
             .then(data => {
-                console.log(data);
                 clearCart();
                 window.location.reload();
             })

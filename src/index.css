@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+    --background-image-home: url('/cafe-home.jpg')
+}
+
 .embla {
     overflow: hidden;
 }
